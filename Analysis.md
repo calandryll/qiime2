@@ -95,10 +95,14 @@ All taxonomic analysis is done with the 515-806 data (V4 region), as this was th
 ### Green Genes Data
 ```bash
 qiime feature-classifier classify-sklearn \
---i-classifier reference_sets/
 --i-classifier reference_sets/gg-13-8-99-515-806-nb-classifier.qza \
 --i-reads love_creek_rep_seqs_dada2.qza \
 --o-classification gg_taxonomy.qza
+
+qiime feature-classifier classify-sklearn \
+--i-classifier reference_sets/gg-13-8-99-nb-classifier.qza \
+--i-reads love_creek_rep_seqs_dada2.qza \
+--o-classification gg_all_taxonomy.qza
 ```
 
 ## Export OTU Table for Sourcetracker Analysis
@@ -110,6 +114,18 @@ love_creek_table_dada2.qza \
 
 biom convert -i feature-table.biom -o feature_table.txt --to-tsv
 ```
+This does not combine frequencies of OTUs into a singular line item for downstream analysis.
+
+```bash
+qiime taxa collapse \
+--i-table love_creek_table_dada2.qza \
+--i-taxonomy gg_taxonomy.qza \
+--p-level 7 \
+--o-collapsed-table collapsed_table.qza
+
+
+```
+
 
 Rscript ~/bin/sourcetracker/sourcetracker_for_qiime.r -i otus/feature_table.txt -m mapping.txt -o sourcetracker
 
