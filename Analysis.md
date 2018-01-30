@@ -128,7 +128,7 @@ qiime taxa collapse \
 
 
 Rscript ~/bin/sourcetracker/sourcetracker_for_qiime.r -i otus/feature_table.txt -m mapping.txt -o sourcetracker
-
+```bash
 qiime dada2 denoise-paired \
 --i-demultiplexed-seqs love_creek_demux.qza \
 --p-trunc-len-f 240 \
@@ -136,3 +136,24 @@ qiime dada2 denoise-paired \
 --p-n-threads 0 \
 --o-table love_creek_table_dada2.qza \
 --o-representative-sequences love_creek_rep_seqs_dada2.qza
+```
+
+## Open reference clustering ala QIIME 1
+97 otus from SILVA are used to cluster via open reference dada2 sequences.
+
+```bash
+qiime tools import \
+--input-path reference_sets/SILVA_128_QIIME_release/rep_set/rep_set_16S_only/97/97_otus_16S.fasta \
+--output-path silva_97_otus.qza \
+--type 'FeatureData[Sequence]'
+
+qiime vsearch cluster-features-open-reference \
+--i-sequences love_creek_rep_seqs_dada2.qza \
+--i-table love_creek_table_dada2.qza \
+--i-reference-sequences silva_97_otus.qza \
+--p-perc-identity 1 \
+--p-threads 0 \
+--o-clustered-table silva_open_table.qza \
+--o-clustered-sequences silva_open_seq.qza \
+--o-new-reference-sequences silva_open_ref_seq.qza
+```
