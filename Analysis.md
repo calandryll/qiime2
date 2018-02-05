@@ -157,3 +157,13 @@ qiime vsearch cluster-features-open-reference \
 --o-clustered-sequences silva_open_seq.qza \
 --o-new-reference-sequences silva_open_ref_seq.qza
 ```
+
+qiime vsearch cluster-features-open-reference \
+--i-table derep_table.qza \
+--i-sequences derep_seq.qza \
+--i-reference-sequences ../silva_97_otus.qza \
+--p-perc-identity 1 \
+--p-threads 0 \
+--o-clustered-table silva_open_table.qza \
+--o-clustered-sequences silva_open_seq.qza \
+--o-new-reference-sequences silva_open_ref_seq.qza
