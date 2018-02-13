@@ -167,3 +167,25 @@ qiime vsearch cluster-features-open-reference \
 --o-clustered-table silva_open_table.qza \
 --o-clustered-sequences silva_open_seq.qza \
 --o-new-reference-sequences silva_open_ref_seq.qza
+
+```bash
+qiime vsearch join-pairs \
+--i-demultiplexed-seqs ../love_creek_demux.qza \
+--o-joined-sequences demux_joined.qza
+
+qiime demux summarize \
+--i-data demux_joined.qza \
+--o-visualization demux_joined.qzv
+
+qiime vsearch dereplicate-sequences \
+--i-sequences demux_joined.qza \
+--o-dereplicated-table derep_table.qza \
+--o-dereplicated-sequences derep_seq.qza
+```
+
+```bash
+qiime tools export derep_seq.qza --output-dir seq
+pick_open_reference_otus.py -i seq.fa -o otus -a -O 20
+biom convert -i otus/otu_table_mc2_w_tax_no_pynast_failures.biom -o nonfiltered.txt --to-tsv
+Rscript ~/bin/sourcetracker/sourcetracker_for_qiime.r -i otus/feature_table.txt -m mapping.txt -o sourcetracker
+```
