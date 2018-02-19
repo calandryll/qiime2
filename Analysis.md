@@ -189,3 +189,18 @@ pick_open_reference_otus.py -i seq.fa -o otus -a -O 20
 biom convert -i otus/otu_table_mc2_w_tax_no_pynast_failures.biom -o nonfiltered.txt --to-tsv
 Rscript ~/bin/sourcetracker/sourcetracker_for_qiime.r -i otus/feature_table.txt -m mapping.txt -o sourcetracker
 ```
+
+```bash
+multiple_join_paired_ends.py -i ../raw_data/ -o joined --read1_indicator _1. --read2_indicator _2.
+multiple_split_libraries_fastq.py -i fastq/ -o split
+pick_open_reference_otus.py -i split/final.fna -o otus -a -O 20
+```
+
+Filter for a minimum of 3 samples
+```bash
+filter_otus_from_otu_table.py -i otus/otu_table_mc2_w_tax_no_pynast_failures.biom -o filter_otu_table.biom -s 3
+```
+Run sourcetracker on the filtered OTU table from QIIME and QIIME2
+```bash
+Rscript /opt/sourcetracker/sourcetracker_for_qiime.r -i filtered_otu_table.txt -m ../mapping.txt -o sourcetracker
+```
