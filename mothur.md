@@ -11,16 +11,17 @@ summary.seqs(fasta=stability.trim.contigs.fasta)
 ```
 Using 24 processors.
 
-		Start	End	NBases	Ambigs	Polymer	NumSeqs
-Minimum:	1	244	244	0	3	1
-2.5%-tile:	1	303	303	0	4	473077
-25%-tile:	1	304	304	0	4	4730769
-Median: 	1	304	304	0	4	9461537
-75%-tile:	1	304	304	0	5	14192305
-97.5%-tile:	1	305	305	2	6	18449997
-Maximum:	1	499	499	111	227	18923073
-Mean:	1	304.417	304.417	0.23493	4.5084
-# of Seqs:	18923073
+||Start|End|NBases|Ambigs|Polymer|NumSeqs|
+|---|---|---|---|---|---|---|
+|Minimum:|1|244|244|0|3|1|
+|2.5%-tile:|1|303|303|0|4|473077|
+|25%-tile:|1|304|304|0|4|4730769|
+|Median: |1|304|304|0|4|9461537|
+|75%-tile:|1|304|304|0|5|14192305|
+|97.5%-tile:|1|305|305|2|6|18449997|
+|Maximum:|1|499|499|111|227|18923073|
+|Mean:|1|304.417|304.417|0.23493|4.5084|
+|# of Seqs:|18923073|
 
 Output File Names: 
 /media/science/microbiome/mothur/stability.trim.contigs.summary
@@ -28,7 +29,6 @@ Output File Names:
 It took 26 secs to summarize 18923073 sequences.
 ```
 screen.seqs(fasta=stability.trim.contigs.fasta, group=stability.contigs.groups, summary=stability.trim.contigs.summary, maxambig=0, maxlength=305, minlength=295)
-
 summary.seqs()
 ```
 
