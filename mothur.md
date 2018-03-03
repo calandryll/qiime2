@@ -62,18 +62,18 @@ Using /media/science/microbiome/mothur/stability.trim.contigs.good.unique.fasta 
 
 Using 24 processors.
 
-                ||Start|   End|     NBases|  Ambigs|  Polymer| NumSeqs|
-                |---|---|---|---|---|---|---|
-|Minimum:        1       295     295     0       3       1|
-|2.5%-tile:      1       303     303     0       4       446895|
-|25%-tile:       1       304     304     0       4       4468943|
-|Median:         1       304     304     0       4       8937886|
-|75%-tile:       1       304     304     0       5       13406828|
-|97.5%-tile:     1       305     305     0       6       17428876|
-|Maximum:        1       499     499     0       227     17875770|
-|Mean:   1       304.372 304.372 0       4.50755|
-|# of unique seqs:       9879082|
-|total # of seqs:        17875770|
+||Start|   End|     NBases|  Ambigs|  Polymer| NumSeqs|
+|---|---|---|---|---|---|---|
+|Minimum:|        1  |     295|     295|     0|       3  |     1|
+|2.5%-tile:|      1  |     303|     303|     0|       4  |     446895|
+|25%-tile:|       1  |     304|     304|     0|       4  |     4468943|
+|Median:  |       1  |     304|     304|     0|       4  |     8937886|
+|75%-tile: |      1  |     304|     304|     0|       5  |     13406828|
+|97.5%-tile:|     1  |     305|     305|     0|       6 |      17428876|
+|Maximum:    |    1  |     499|     499|     0       227|     17875770|
+|Mean: |  1    |   304.372| 304.372| 0|       4.50755|
+|# of unique seqs: |      9879082|
+|total # of seqs:   |     17875770|
 
 Output File Names:
 /media/science/microbiome/mothur/stability.trim.contigs.good.unique.summary
