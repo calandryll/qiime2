@@ -1,4 +1,6 @@
 # mothur Analysis
+Analysis was carried out by using [mothur's MiSeq SOP](https://www.mothur.org/wiki/MiSeq_SOP) and [this protocol](https://www.protocols.io/view/week-8-classifying-taxonomy-of-short-reads-with-mo-g7tbznn).
+
 ## Sequence Cleanup
 ### Make File and Contigs
 ```
@@ -84,4 +86,10 @@ It took 65 secs to summarize 17875770 sequences.
 ## Align sequences to SILVA v132
 ```
 align.seqs(fasta=stability.trim.contigs.good.unique.fasta, reference=silva.seed_v132.align)
+summary.seqs(fasta=stability.trim.contigs.good.unique.align, count=stability.trim.contigs.good.count_table)
+```
+
+### Cleanup of aligned sequences
+```
+screen.seqs(fasta=stability.trim.contigs.good.unique.align, count=stability.trim.contigs.good.count_table, summary=stability.trim.contigs.good.unique.summary, start=XXX, end=XXX, maxhomop=8)
 ```
