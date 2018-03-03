@@ -1,10 +1,10 @@
 # mothur Analysis
-Analysis was carried out by using [mothur's MiSeq SOP](https://www.mothur.org/wiki/MiSeq_SOP) and [this protocol](https://www.protocols.io/view/week-8-classifying-taxonomy-of-short-reads-with-mo-g7tbznn).
+Analysis was carried out by using a mixture of [mothur's MiSeq SOP](https://www.mothur.org/wiki/MiSeq_SOP) and [this protocol](https://www.protocols.io/view/week-8-classifying-taxonomy-of-short-reads-with-mo-g7tbznn).  Raw files from [Novogene](https://en.novogene.com) were renamed and modified using the [renamer.py](https://github.com/calandryll/qiime2/blob/master/mothur/renamer.py) script to rename files and associated reads.
 
 ## Sequence Cleanup
 ### Make File and Contigs
 ```
-make.file(inputdir=/media/science/microbiome/mothur, type=fastq, prefix=stability)
+make.file(inputdir=/media/science/microbiome/mothur, type=gz, prefix=stability)
 make.contigs(file=stability.files, processors=24)
 ```
 ### Filter out oddball lengths
