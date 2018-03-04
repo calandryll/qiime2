@@ -89,7 +89,30 @@ align.seqs(fasta=stability.trim.contigs.good.unique.fasta, reference=silva.seed_
 summary.seqs(fasta=stability.trim.contigs.good.unique.align, count=stability.trim.contigs.good.count_table)
 ```
 
+Using 24 processors.
+
+||Start|End|NBases|  Ambigs|  Polymer| NumSeqs|
+|---|---|---|---|---|---|---|
+|Minimum:|   0|  0|  0|  0|  1|  1|
+|2.5%-tile:| 10368|25437|303|0|  4|  446895|
+|25%-tile:|  10369|25438|304|0|  4|  4468943|
+|Median:| 10369|25438|304|0|  4|  8937886|
+|75%-tile:|  10369|25438|304|0|  5|  13406828|
+|97.5%-tile:|10370|25440|305|0|  6|  17428876|
+|Maximum:|   43116|43116|499|0|  227|17875770|
+|Mean:|10377|25441.1| 304.233 0|  4.50498|
+|# of unique seqs:|  9879082|
+|total # of seqs:|   17875770|
+
+Output File Names:
+/media/science/microbiome/mothur/stability.trim.contigs.good.unique.summary
+
+It took 8342 secs to summarize 17875770 sequences.
+
+
+
 ### Cleanup of aligned sequences
 ```
-screen.seqs(fasta=stability.trim.contigs.good.unique.align, count=stability.trim.contigs.good.count_table, summary=stability.trim.contigs.good.unique.summary, start=XXX, end=XXX, maxhomop=8)
+screen.seqs(fasta=stability.trim.contigs.good.unique.align, count=stability.trim.contigs.good.count_table, summary=stability.trim.contigs.good.unique.summary, start=10368, end=25440, maxhomop=8)
+filter.seqs(fasta=stability.trim.contigs.good.unique.good.align, vertical=T, trump=.)
 ```
