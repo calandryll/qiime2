@@ -66,16 +66,16 @@ Using 24 processors.
 
 ||Start|   End|     NBases|  Ambigs|  Polymer| NumSeqs|
 |---|---|---|---|---|---|---|
-|Minimum:|        1  |     295|     295|     0|       3  |     1|
-|2.5%-tile:|      1  |     303|     303|     0|       4  |     446895|
-|25%-tile:|       1  |     304|     304|     0|       4  |     4468943|
-|Median:  |       1  |     304|     304|     0|       4  |     8937886|
-|75%-tile: |      1  |     304|     304|     0|       5  |     13406828|
-|97.5%-tile:|     1  |     305|     305|     0|       6 |      17428876|
-|Maximum:    |    1  |     499|     499|     0       227|     17875770|
-|Mean: |  1    |   304.372| 304.372| 0|       4.50755|
-|# of unique seqs: |      9879082|
-|total # of seqs:   |     17875770|
+|Minimum:|1  |295|295|0|3  |1|
+|2.5%-tile:|1  |303|303|0|4  |446895|
+|25%-tile:|1  |304|304|0|4  |4468943|
+|Median:  |1  |304|304|0|4  |8937886|
+|75%-tile: |1  |304|304|0|5  |13406828|
+|97.5%-tile:|1  |305|305|0|6 |17428876|
+|Maximum:|1  |499|499|0|227|17875770|
+|Mean: |1    |304.372| 304.372| 0|4.50755|
+|# of unique seqs: |9879082|
+|total # of seqs:   |17875770|
 
 Output File Names:
 /media/science/microbiome/mothur/stability.trim.contigs.good.unique.summary
@@ -88,6 +88,7 @@ It took 65 secs to summarize 17875770 sequences.
 align.seqs(fasta=stability.trim.contigs.good.unique.fasta, reference=silva.seed_v132.align)
 summary.seqs(fasta=stability.trim.contigs.good.unique.align, count=stability.trim.contigs.good.count_table)
 ```
+**May want to add the flip=true in future analysis**
 
 Using 24 processors.
 
@@ -113,6 +114,18 @@ It took 8342 secs to summarize 17875770 sequences.
 
 ### Cleanup of aligned sequences
 ```
-screen.seqs(fasta=stability.trim.contigs.good.unique.align, count=stability.trim.contigs.good.count_table, summary=stability.trim.contigs.good.unique.summary, start=10368, end=25440, maxhomop=8)
+~~screen.seqs(fasta=stability.trim.contigs.good.unique.align, count=stability.trim.contigs.good.count_table, summary=stability.trim.contigs.good.unique.summary, start=10368, end=25440, maxhomop=8)~~
+```
+This removed several groups from the analysis.  May need to investigate why this is, re-running alignment with **flip=true**.
+```
+align.seqs(fasta=stability.trim.contigs.good.unique.fasta, reference=silva.seed_v132.align, flip=true)
+summary.seqs(fasta=stability.trim.contigs.good.unique.align, count=stability.trim.contigs.good.count_table)
+```
+
+```
 filter.seqs(fasta=stability.trim.contigs.good.unique.good.align, vertical=T, trump=.)
+unique.seqs(fasta=stability.trim.contigs.good.unique.good.filter.fasta, count=stability.trim.contigs.good.good.count_table)
+pre.cluster(fasta=stability.trim.contigs.good.unique.good.filter.unique.fasta, count=stability.trim.contigs.good.unique.good.filter.count_table, diffs=2)
+chimera.vsearch(fasta=stability.trim.contigs.good.unique.good.filter.unique.precluster.fasta, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.count_table, dereplicate=t)
+remove.seqs(fasta=stability.trim.contigs.good.unique.good.filter.unique.precluster.fasta, accnos=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.accnos)
 ```
