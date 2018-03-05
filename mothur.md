@@ -113,9 +113,7 @@ It took 8342 secs to summarize 17875770 sequences.
 
 
 ### Cleanup of aligned sequences
-```
 ~~screen.seqs(fasta=stability.trim.contigs.good.unique.align, count=stability.trim.contigs.good.count_table, summary=stability.trim.contigs.good.unique.summary, start=10368, end=25440, maxhomop=8)~~
-```
 This removed several groups from the analysis.  May need to investigate why this is, re-running alignment with **flip=true**.
 ```
 align.seqs(fasta=stability.trim.contigs.good.unique.fasta, reference=silva.seed_v132.align, flip=true)
