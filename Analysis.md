@@ -235,3 +235,109 @@ Rscript /opt/sourcetracker/sourcetracker_for_qiime.r -i feature_table.txt -m ../
 ```bash
 Rscript /opt/sourcetracker/sourcetracker_for_qiime.r -i feature_table.txt -m ../mapping2.txt -o sourcetracker
 ```
+
+# Proper Analysis
+## Reads import
+```bash
+qiime tools import \
+--type 'SampleData[PairedEndSequencesWithQuality]' \
+--input-path love_creek_manifest \
+--output-path love_creek_demux.qza \
+--source-format PairedEndFastqManifestPhred33
+
+qiime demux summarize \
+--i-data love_creek_demux.qza \
+--o-visualization love_creek_demux.qzv
+```
+
+## Trim Primers
+```bash
+qiime cutadapt trim-paired \
+--i-demultiplexed-sequences love_creek_demux.qza \
+--p-cores 20 \
+--p-adapter-f GTGCCAGCMGCCGCGGTAA \
+--p-adapter-r GGACTACHVGGGTWTCTAAT \
+--o-trimmed-sequences love_creek_trimmed.qza
+```
+
+## Trim within DADA2
+```bash
+qiime dada2 denoise-paired \
+--i-demultiplexed-seqs love_creek_demux.qza \
+--p-trim-left-f 25 \
+--p-trim-left-r 26 \
+--p-n-threads 20 \
+--p-trunc-len-f 250 \
+--p-trunc-len-r 250 \
+--o-table dada2_table.qza \
+--o-representative-sequences dada2_rep_seqs.qza
+```
+### Summarize DADA2 features
+```bash
+qiime feature-table summarize \
+--i-table dada2_table.qza \
+--o-visualization table_dada2.qzv \
+--m-sample-metadata-file mapping.tsv
+
+qiime feature-table tabulate-seqs \
+--i-data dada2_rep_seqs.qza \
+--o-visualization rep_seqs_dada2.qzv
+```
+### Classify via GreenGenes
+```bash
+qiime feature-classifier classify-sklearn \
+--i-classifier reference_sets/gg-13-8-99-515-806-nb-classifier.qza \
+--i-reads dada2_rep_seqs.qza \
+--p-n-jobs 20 \
+--o-classification gg_v4_taxonomy.qza
+
+qiime feature-classifier classify-sklearn \
+--i-classifier reference_sets/gg-13-8-99-nb-classifier.qza \
+--i-reads dada2_rep_seqs.qza \
+--p-n-jobs 20 \
+--o-classification gg_all_taxonomy.qza
+```
+### Classify via SILVA
+```bash
+qiime feature-classifier classify-sklearn \
+--i-classifier reference_sets/silva-199-99-515-806-nb-classifier.qza \
+--i-reads dada2_rep_seqs.qza \
+--p-n-jobs 20 \
+--o-classification silva_v4_taxonomy.qza
+
+qiime feature-classifier classify-sklearn \
+--i-classifier reference_sets/silva-119-99-nb-classifier.qza \
+--i-reads dada2_rep_seqs.qza \
+--p-n-jobs 20 \
+--o-classification silva_all_taxonomy.qza
+```
+
+## ASV analysis
+Examining tables it appears that samples 1709044-008 and 1709044-009 may be contaminated, similar in structure to other fecal samples.
+### Removing two samples
+```bash
+qiime feature-table filter-samples \
+--i-table dada2_table.qza \
+--m-metadata-file mapping2.tsv \
+--p-no-exclude-ids True \
+--o-filtered-table dada2_filtered_table.qza
+```
+```bash
+qiime taxa barplot \
+--i-table dada2_filtered_table.qza \
+--i-taxonomy gg_v4_taxonomy.qza \
+--m-metadata-file mapping2.tsv \
+--o-visualization filtered_barplot.qzv
+```
+```bash
+qiime taxa collapse \
+--i-table dada2_filtered_table.qza \
+--i-taxonomy gg_v4_taxonomy.qza \
+--p-level 7 \
+--o-collapsed-table filtered_collapsed_sp.qza
+
+qiime taxa collapse \
+--i-table dada2_filtered_table.qza \
+--i-taxonomy gg_v4_taxonomy.qza \
+--p-level 5 \
+--o-collapsed-table filtered_collapsed_fam.qza
