@@ -163,4 +163,36 @@ Number of sequences used to construct filter: 9686064
 ```
 unique.seqs(fasta=stability.trim.contigs.good.unique.good.filter.fasta, count=stability.trim.contigs.good.good.count_table)
 pre.cluster(fasta=stability.trim.contigs.good.unique.good.filter.unique.fasta, count=stability.trim.contigs.good.unique.good.filter.count_table, diffs=2)
+summary.seqs()
 ```
+Using 24 processors.
+[WARNING]: This command can take a namefile and you did not provide one. The current namefile is /media/science/microbiome/mothur/stability.trim.contigs.good.names which seems to match /media/science/microbiome/mothur/stability.trim.contigs.good.unique.good.filter.unique.precluster.fasta.
+
+||Start|End|NBases|Ambigs|Polymer|NumSeqs|
+|---|---|---|---|---|---|---|
+|Minimum:|1|674|273|0|3|1|
+|2.5%-tile:|1|674|292|0|4|78424|
+|25%-tile:|1|674|293|0|4|784236|
+|Median: |1|674|293|0|4|1568472|
+|75%-tile:|1|674|293|0|5|2352708|
+|97.5%-tile:|1|674|294|0|6|3058520|
+|Maximum:|1|674|299|0|8|3136943|
+|Mean:|1|674|293.009|0|4.47774|
+|# of Seqs:|3136943|
+
+Output File Names: 
+/media/science/microbiome/mothur/stability.trim.contigs.good.unique.good.filter.unique.precluster.summary
+
+It took 16 secs to summarize 3136943 sequences.
+###Cleanup and remove any chimeric sequences
+```
+chimera.vsearch(fasta=stability.trim.contigs.good.unique.good.filter.unique.precluster.fasta, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.count_table, dereplicate=t)
+remove.seqs(fasta=stability.trim.contigs.good.unique.good.filter.unique.precluster.fasta, accnos=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.accnos)
+```
+##Classification of sequences
+```
+classify.seqs(fasta=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.fasta, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.count_table, reference=trainset9_032012.pds.fasta, taxonomy=trainset9_032012.pds.tax, cutoff=80)
+remove.lineage(fasta=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.fasta, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.count_table, taxonomy=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pds.wang.taxonomy, taxon=Chloroplast-Mitochondria-unknown-Archaea-Eukaryota)
+summary.tax(taxonomy=current, count=current)
+```
+
