@@ -196,6 +196,8 @@ remove.lineage(fasta=stability.trim.contigs.good.unique.good.filter.unique.precl
 summary.tax(taxonomy=current, count=current)
 ```
 
+##OTU Analysis
+###Distance Analysis
 ```
-dist.seqs(fasta=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.fasta, cutoff=0.03)
+cluster.split(fasta=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.fasta, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.pick.count_table, taxonomy=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pds.wang.pick.taxonomy, splitmethod=classify, taxlevel=4, cutoff=0.03)
 ```
