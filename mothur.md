@@ -196,3 +196,6 @@ remove.lineage(fasta=stability.trim.contigs.good.unique.good.filter.unique.precl
 summary.tax(taxonomy=current, count=current)
 ```
 
+```
+dist.seqs(fasta=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.fasta, cutoff=0.03)
+```
