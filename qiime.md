@@ -42,3 +42,34 @@ pick_open_reference_otus.py \
 	-a \
 	-O 24
 ```
+
+## Diversity analysis
+Summarization of otu_table_mc2_w_tax_no_pynast_failures.biom
+
+|Num samples:| 91|
+|Num observations: |241,524|
+|Total count: |17,926,512|
+|Table density (fraction of non-zero values): |0.076|
+|Counts/sample summary:||
+|Min: |113,754.000|
+|Max: |211,538.000|
+|Median: |199,144.000|
+|Mean: |196,994.637|
+|Std. dev.: |14,139.236|
+|Sample Metadata Categories:| None provided|
+|Observation Metadata Categories: |taxonomy|
+
+### Core Diversity analysis
+A sampling depth of 113,754 will be used for diversity anaylsis.
+
+```bash
+core_diversity_analyses.py \
+	-o analysis/diversity \
+	-i analysis/otus/otu_table_mc2_w_tax_no_pynast_failures.biom \
+	-m mapping/mapping.txt \
+	-t analysis/otus/rep_set.tre \
+	-e 113754 \
+	-a \
+	-O 24 \
+	--recover_from_failure
+```
