@@ -1,5 +1,5 @@
 # QIIME 1 Analysis
-Adaptation of this [tutorial](https://github.com/BikLab/BITMaB-workshop/blob/master/QIIME-metabarcoding-tutorial-already-demultiplexed-fastqs.md) for samples produced by Novogene.  Samples were demultiplexed by them and not labelled.  Reads were labelled using [renamer.py](https://github.com/calandryll/qiime2/blob/master/mothur/renamer.py).
+Adaptation of this [tutorial](https://github.com/BikLab/BITMaB-workshop/blob/master/QIIME-metabarcoding-tutorial-already-demultiplexed-fastqs.md) for samples produced by Novogene.  Samples were demultiplexed by them and not labelled.  ~~Reads were labelled using [renamer.py](https://github.com/calandryll/qiime2/blob/master/mothur/renamer.py).~~
 
 ## Paired End Joining
 ```bash
@@ -23,4 +23,22 @@ multiple_split_libraries_fastq.py \
 	-o data_clean/split_libraries/ \
 	--read_indicator _1 \
 	-p parameters/split_libraries.txt
+```
+
+## Remove Reverse Primers
+```bash 
+truncate_reverse_primer.py \
+	-f data_clean/split_libraries/seqs.fna \ 
+	-m mapping/mapping.txt \
+	-o data_clean/trunc_primer
+```
+
+## Open Reference OTU picking
+```bash
+pick_open_reference_otus.py \
+	-i data_clean/trunc_primer/seqs_rev_primer_truncated.fna \
+	-o analysis/otus \
+	-p parameters/otu.txt \
+	-a \
+	-O 24
 ```

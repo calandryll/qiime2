@@ -1,0 +1,2 @@
+# OTU picker parameters
+pick_otus:enable_rev_strand_match	True
