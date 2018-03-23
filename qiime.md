@@ -44,10 +44,10 @@ pick_open_reference_otus.py \
 ```
 
 ## Diversity analysis
-Summarization of otu_table_mc2_w_tax_no_pynast_failures.biom
 
-|Num samples:| 91|
+|Summarization of otu_table_mc2_w_tax_no_pynast_failures.biom||
 |---|---|
+|Num samples:| 91|
 |Num observations: |241,524|
 |Total count: |17,926,512|
 |Table density (fraction of non-zero values): |0.076|
