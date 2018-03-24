@@ -74,3 +74,37 @@ core_diversity_analyses.py \
 	-O 24 \
 	--recover_from_failure
 ```
+
+## Functional Analysis via [PICRUSt](https://picrust.github.io/picrust/index.html)
+
+### Convert open reference OTU table to closed reference OTU table
+```bash
+filter_otus_from_otu_table.py \
+	-i otus/otu_table_mc2_w_tax_no_pynast_failures.biom \
+	-o picrust/closed_otu_table.biom \
+	-e ~/qiime1/local/lib/python2.7/site-packages/qiime_default_reference/gg_13_8_otus/rep_set/97_otus.fasta
+```
+
+### Remove samples with 0 read counts
+```bash
+filter_samples_from_otu_table.py \
+	-i picrust/closed_otu_table.biom \
+	-o picrust/filtered_closed_otu_table.biom \
+	-n 1
+```
+
+### Remove fecal samples
+```bash
+filter_samples_from_otu_table.py \
+	-i picrust/filtered_closed_otu_table.biom \
+	-o picrust/env_samples.biom \
+	-m ../mapping/mapping.txt \
+	-s 'Env:Water'
+```
+
+### Normalize copy number
+```bash
+normalize_by_copy_number.py \
+	-i env_samples.biom \
+	-o normalized_otus.biom
+```
